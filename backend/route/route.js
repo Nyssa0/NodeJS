@@ -1,0 +1,15 @@
+const express = require('express')
+const router = express.Router()
+const postController = require('../controller/controller')
+const auth = require('../middleware/auth')
+
+console.log("test route")
+router.post('/', postController.createPost)
+router.get('/:id', auth, postController.getPostId)
+router.get('/', postController.getAllPost)
+router.delete('/:id', postController.deletePostId)
+router.delete('/', postController.deleteAllPost)
+router.put('/:id', postController.updatePostId)
+router.post('/signup/', postController.signup)
+router.get('/login/:id', postController.login)
+module.exports = router
