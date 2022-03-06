@@ -13,24 +13,44 @@ Set up Node JS :
 npm init 
 ```
 
-``` npm i --save express ```
+``` 
+npm i --save express 
+```
 
-``` npm i --save nodemon ```
+``` 
+npm i --save nodemon
+```
 
-``` npm i --save mongoose  ```
+``` 
+npm i --save mongoose 
+```
 
-``` npm install --save mongoose-unique-validator ```
+``` 
+npm install --save mongoose-unique-validator
+```
 
-``` npm install bcryptjs ```
+``` 
+npm install bcryptjs
+```
 
-``` npm install jsonwebtoken ```
+``` 
+npm install jsonwebtoken
+```
 
 Set up Vue JS
 
-``` vue create front ```
+``` 
+vue create front
+```
 
-``` cd front ```
+``` 
+cd front
+```
 
-``` npm run serve ```
+``` 
+npm run serve
+```
 
-``` npm i axios ```
+``` 
+npm i axios
+```
