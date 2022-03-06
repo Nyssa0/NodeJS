@@ -47,6 +47,9 @@
         </div>
       </form>
       <button v-on:click="getPosts">Get posts</button>
+      <button v-on:click="getPost">Get post</button>
+      <button v-on:click="deletePost">Delete post</button>
+
       <div class="post"
            v-for="post in posts"
            v-bind:key="post._id"
@@ -77,6 +80,34 @@ export default {
     getPosts(){
       const url = 'http://localhost:3000/test/'
       axios.get(url)
+          .then( response => {
+            this.posts = response.data
+            console.log(this.posts)
+          })
+    },
+
+    getPost(){
+      //fonctionne pas à cause du auth
+      const url = 'http://localhost:3000/test/?={_id}'
+      axios.get(url)
+          .then( response => {
+            this.posts = response.data
+            console.log(this.posts)
+          })
+    },
+
+    deletePost(){
+      const url = 'http://localhost:3000/test/?={_id}'
+      axios.delete(url)
+          .then( response => {
+            this.posts = response.data
+            console.log(this.posts)
+          })
+    },
+
+    deletePosts(){
+      const url = 'http://localhost:3000/test/'
+      axios.delete(url)
           .then( response => {
             this.posts = response.data
             console.log(this.posts)
