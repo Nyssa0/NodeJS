@@ -9,7 +9,9 @@
 
 Set up Node JS :
 
-``` npm init ```
+``` 
+npm init 
+```
 
 ``` npm i --save express ```
 
