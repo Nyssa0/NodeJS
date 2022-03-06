@@ -1,89 +1,100 @@
+
 <template>
   <div class="hello">
     <h1>Posts</h1>
     <hr>
-    <p class="error">
-
-    </p>
-<!--    form create post
-    <form
-        id="app"
-        @submit="checkForm"
-        action="http://localhost:3000/test/"
-        method="post"
-    >
-
-      &lt;!&ndash;      <p v-if="errors.length">&ndash;&gt;
-      &lt;!&ndash;        <b>Please correct the following error(s):</b>&ndash;&gt;
-      &lt;!&ndash;      <ul>&ndash;&gt;
-      &lt;!&ndash;        <li v-for="error in errors">{{ error }}</li>&ndash;&gt;
-      &lt;!&ndash;      </ul>&ndash;&gt;
-      &lt;!&ndash;      </p>&ndash;&gt;
-
-
-      <p>
-        <label for="titre">Titre</label>
-        <input
-            id="titre"
-            v-model="titre"
-            type="text"
-            name="titre"
-        >
-      </p>
-
-      <p>
-        <label for="author">Author</label>
-        <input
-            id="author"
-            v-model="author"
-            type="text"
-            name="author"
-        >
-      </p>
-
-      <p>
-        <label for="text">Text</label>
-        <input
-            id="text"
-            v-model="text"
-            type="text"
-            name="text"
-        >
-      </p>
-
-      <p>
-        <input
-            type="submit"
-            value="Submit"
-        >
-      </p>
-
-    </form>-->
-
+    <p class="error" v-if="error">{{ error }}</p>
+    <div class="posts-container">
+      <form @submit.prevent="insertPost">
+        <h1>Create a post</h1>
+        <div>
+          <label htmlFor="title">
+            Title
+          </label>
+          <input
+              id="title"
+              type="text"
+              placeholder="Your title"
+              v-model="title"
+          />
+        </div>
+        <div>
+          <label htmlFor="text">
+            Text
+          </label>
+          <input
+              id="text"
+              type="text"
+              placeholder="Your text"
+              v-model="text"
+          />
+        </div>
+        <div>
+          <label htmlFor="author">
+            Author
+          </label>
+          <input
+              id="author"
+              type="text"
+              placeholder="Author"
+              v-model="author"
+          />
+        </div>
+        <div>
+          <button>
+            Create Post
+          </button>
+        </div>
+      </form>
+      <button v-on:click="getPosts">Get posts</button>
+      <div class="post"
+           v-for="post in posts"
+           v-bind:key="post._id"
+      >
+        <p class="text">{{post}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import postService from '../postService'
+import axios from "axios";
+
 export default {
   name: 'HelloWorld',
   data(){
     return {
-      posts: [],
-      error: '',
-      text: ''
-    }
-  },
-
-  async created() {
-    try {
-      this.posts = await postService.getPosts()
-    } catch (err) {
-      this.error = err.message
+      title : '',
+      text : '',
+      author : '',
+      posts:["Cliquez sur le bouton 👆"],
+      url:'http://localhost:3000/test/'
     }
   },
 
   methods: {
+
+    getPosts(){
+      const url = 'http://localhost:3000/test/'
+      axios.get(url)
+          .then( response => {
+            this.posts = response.data
+            console.log(this.posts)
+          })
+    },
+
+    insertPost(){
+      console.log("does it xork ?")
+      axios.post('http://localhost:3000/test/',{
+        title: this.title,
+        text: this.text,
+        author: this.author
+      }).then(response =>{
+        console.log(response)
+      }).catch(error=>{
+        console.log(error)
+      })
+    },
 
     checkForm: function (e) {
       if (this.name && this.age) {
