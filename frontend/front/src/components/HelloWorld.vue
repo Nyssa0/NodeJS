@@ -45,16 +45,34 @@
             Create Post
           </button>
         </div>
+        <br>
       </form>
-      <button v-on:click="getPosts">Get posts</button>
-      <button v-on:click="getPost">Get post</button>
-      <button v-on:click="deletePost">Delete post</button>
+      <h1>Get the posts</h1>
+      <button v-on:click="getPosts">Get posts</button><br><br>
+      <h1 class="hidden4">Show or delete the first post</h1>
+      <button class="hidden1" v-on:click="getPost">Show the first post</button><br>
+      <button class="hidden2" v-on:click="deletePost">Delete the first post</button>
+      <div class="hidden3">
+        <h1>The posts</h1>
 
-      <div class="post"
-           v-for="post in posts"
-           v-bind:key="post._id"
-      >
-        <p class="text">{{post}}</p>
+        <div class="post"
+             v-for="post in posts"
+             v-bind:key="post._id"
+        >
+          <p class="text" id="id">{{post._id}}</p>
+          <p class="text">title : {{post.title}}</p>
+          <p class="text">text : {{post.text}}</p>
+          <p class="text">author : {{post.author}}</p>
+
+        </div>
+      </div>
+
+
+
+
+
+      <div class="postId">
+
       </div>
     </div>
   </div>
@@ -82,22 +100,28 @@ export default {
       axios.get(url)
           .then( response => {
             this.posts = response.data
-            console.log(this.posts)
+            document.querySelector(".hidden1").style.display = 'block'
+            document.querySelector(".hidden2").style.display = 'block'
+            document.querySelector(".hidden3").style.display = 'block'
+            document.querySelector(".hidden4").style.display = 'block'
+
           })
     },
 
     getPost(){
       //fonctionne pas à cause du auth
-      const url = 'http://localhost:3000/test/?={_id}'
+      let getId = document.getElementById("id").textContent
+      const url = `http://localhost:3000/test/${getId}`
       axios.get(url)
           .then( response => {
             this.posts = response.data
-            console.log(this.posts)
+            window.open(url, '_blank')
           })
     },
 
     deletePost(){
-      const url = 'http://localhost:3000/test/?={_id}'
+      let getId = document.getElementById("id").textContent
+      const url = `http://localhost:3000/test/${getId}`
       axios.delete(url)
           .then( response => {
             this.posts = response.data
@@ -163,5 +187,25 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.hidden1{
+  display: none;
+  margin: auto;
+}
+.hidden2{
+  display: none;
+  margin: auto;
+
+}
+.hidden3{
+  display: none;
+  margin: auto;
+
+}
+.hidden4{
+  display: none;
+  margin: auto;
+
 }
 </style>

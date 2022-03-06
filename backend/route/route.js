@@ -5,11 +5,11 @@ const auth = require('../middleware/auth')
 
 console.log("test route")
 router.post('/', postController.createPost)
-router.get('/:id', auth, postController.getPostId)
+router.get('/:id', postController.getPostId)
 router.get('/', postController.getAllPost)
 router.delete('/:id', postController.deletePostId)
 router.delete('/', postController.deleteAllPost)
-router.put('/:id', postController.updatePostId)
+router.put('/:id', auth, postController.updatePostId)
 router.post('/signup/', postController.signup)
 router.get('/login/:id', postController.login)
 module.exports = router
